@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EntityLayer.Concrete
@@ -11,5 +12,7 @@ namespace EntityLayer.Concrete
         public string Description { get; set; }
         public bool Status { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.Now.ToShortDateString());
+
+        public List<Blog> Blogs { get; set; }
     }
 }

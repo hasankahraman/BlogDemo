@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EntityLayer.Concrete
@@ -13,6 +14,11 @@ namespace EntityLayer.Concrete
         public string ImageThumbnail { get; set; }
         public bool Status { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.Now.ToShortDateString());
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
+        public List<Comment> Comments { get; set; }
 
     }
 }
