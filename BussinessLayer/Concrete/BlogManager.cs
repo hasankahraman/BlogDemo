@@ -38,6 +38,11 @@ namespace BussinessLayer.Concrete
 			return _blogDAL.GetById(id);
 		}
 
+		public List<Blog> GetWithCategory()
+		{
+			return _blogDAL.GetWithCategory();
+		}
+
 		public void Update(Blog blog)
 		{
 			_blogDAL.Update(blog);

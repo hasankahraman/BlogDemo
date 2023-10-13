@@ -27,21 +27,15 @@
 								</li>
 								<li class="mx-2">
 									<a href="#">
-										<i class="far fa-comment"></i> 10
+										<i class="far fa-comment"></i> @item.Category.Name
 									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fas fa-eye"></i> 150
-									</a>
-								</li>
-
+								</li> 
 							</ul>
 							<h5 class="card-title">
 								<a href="single.html">@item.Title</a>
 							</h5>
-							<p class="card-text mb-3">@item.Content.. </p>
-							<a href="single.html" class="btn btn-primary read-m">Read More</a>
+							<p class="card-text mb-3">@item.Content.Substring(0,item.Content.Substring(0,30).LastIndexOf(" ")).. </p>
+							<a href="/Blog/GetDetails/@item.Id" class="btn btn-primary read-m">Read More</a>
 						</div>
 					</div>
 					}

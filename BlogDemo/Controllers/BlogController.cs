@@ -9,7 +9,7 @@ namespace BlogDemo.Controllers
 		BlogManager manager = new BlogManager(new EFBlogDAL());
         public IActionResult Index()
         {
-			var blogs = manager.GetAll();
+			var blogs = manager.GetWithCategory();
             return View(blogs);
         }
 
@@ -28,6 +28,11 @@ namespace BlogDemo.Controllers
 		public PartialViewResult PVSocial()
 		{
 			return PartialView();
+		}
+		public IActionResult GetDetails(int id)
+		{
+			var blog = manager.GetById(id);
+			return View(blog);
 		}
 	}
 }
