@@ -3,6 +3,8 @@ using DataAccessLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +30,12 @@ namespace DataAccessLayer.Repositories
             return context.Set<T>().ToList();
         }
 
-        public T GetById(int id)
+		public List<T> Get(Expression<Func<T, bool>> filter)
+		{
+			return context.Set<T>().Where(filter).ToList();
+		}
+
+		public T GetById(int id)
         {
             return context.Set<T>().Find(id);
         }
