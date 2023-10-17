@@ -1,6 +1,8 @@
 ﻿using BussinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace BlogDemo.Controllers
 {
@@ -16,11 +18,20 @@ namespace BlogDemo.Controllers
 			var comments = manager.GetAll(blogId);
 			return PartialView(comments);
 		}
-
-		public PartialViewResult PVAddComment(int blogId)
+		[HttpGet]
+		public IActionResult PVAddComment()
 		{
-			var comments = manager.GetAll(blogId);
-			return PartialView(comments);
+			return View();
+		}
+		[HttpPost]
+		public PartialViewResult PVAddComment(Comment comment)
+		{
+			comment.Status = true;
+			comment.CreatedAt = DateTime.Parse(DateTime.Now.ToShortDateString());
+			comment.BlogId = 9;
+
+			manager.Add(comment);
+			return PartialView();
 		}
 	}
 }

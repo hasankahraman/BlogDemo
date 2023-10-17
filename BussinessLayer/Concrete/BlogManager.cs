@@ -33,7 +33,12 @@ namespace BussinessLayer.Concrete
 			return _blogDAL.Get();
 		}
 
-		public Blog GetById(int id)
+        public List<Blog> GetByAuthor(int writerId)
+        {
+			return _blogDAL.Get(x=> x.WriterId == writerId).OrderByDescending(x=>x.CreatedAt).TakeLast(3).ToList();
+        }
+
+        public Blog GetById(int id)
 		{
 			return _blogDAL.GetById(id);
 		}

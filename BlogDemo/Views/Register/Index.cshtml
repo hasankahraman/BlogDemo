@@ -1,0 +1,73 @@
+﻿@model EntityLayer.Concrete.Writer
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">Register Now</h3>
+        <div class="inner-sec">
+            <div class="login p-5 bg-light mx-auto mw-100">
+                @using (Html.BeginForm("Index", "Register", FormMethod.Post))
+                {
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(x=> x.Name)
+                            @Html.TextBoxFor(x=> x.Name, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(x=> x.Name, "", new {@class="text-danger"})
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(x=> x.Email)
+                            @Html.TextBoxFor(x=> x.Email, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(x=> x.Email, "", new {@class="text-danger"})
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(x=> x.About)
+                            @Html.TextBoxFor(x=> x.About, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(x=> x.About, "", new {@class="text-danger"})
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(x=> x.Title)
+                            @Html.TextBoxFor(x=> x.Title, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(x=> x.Title, "", new {@class="text-danger"})
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(x=> x.Password)
+                            @Html.TextBoxFor(x=> x.Password, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(x=> x.Password, "", new {@class="text-danger"})
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(x=> x.Password)
+                            @Html.TextBoxFor(x=> x.Password, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(x=> x.Password, "", new {@class="text-danger"})
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(x=> x.Image)
+                            @Html.TextBoxFor(x=> x.Image, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(x=> x.Image, "", new {@class="text-danger"})
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit mb-4">Register</button>
+                    <p>
+                        <a id="terms" href="#">By clicking Signup, I agree to your terms</a>
+                    </p>
+                }
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#terms').click(function () {
+            swal("Kayıt ve Kullanım Şartları","What is an Agreement Terms And Conditions? Agreement terms and conditions is a document that outlines the rights and responsibilities between two or more parties. This contract aims to ensure that both parties agree on what each party is responsible for, how they will be compensated, and when the contract expires.");
+        });
+    </script>
+</section>
