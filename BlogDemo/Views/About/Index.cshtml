@@ -1,0 +1,72 @@
+﻿@model List<EntityLayer.Concrete.About>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">About</h3>
+        <div class="row inner-sec">
+            <!--left-->
+            <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+                @foreach (var item in Model)
+                {
+                    <div class="blog-grid-top">
+                        <div class="blog_info_left_grid">
+                            <a href="~/theme/single.html">
+                                <img src="@item.Image1" class="img-fluid" alt="">
+                            </a>
+                        </div>
+                        <h3>
+                            @item.Details1
+                        </h3>
+                        <p>
+                            @item.Details2
+                        </p>
+
+                        <h4>@item.Location</h4>
+                    </div>
+                }
+            </div>
+        <!--//left-->
+        <!--right-->
+        <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
+            <div class="right-blog-info text-left">
+                <div class="tech-btm">
+                    <img src="~/theme/images/banner1.jpg" class="img-fluid" alt="">
+                </div>
+
+                @await Html.PartialAsync("~/Views/Shared/PVSignUpForNewsletter.cshtml")
+
+                @await Html.PartialAsync("~/Views/Shared/PVStayConnect.cshtml")
+
+                <div class="single-gd my-5 tech-btm">
+                    <h4>Our Progress</h4>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                </div>
+                @await Component.InvokeAsync("GetOtherBlogsOfAuthor")
+            </div>
+        </aside>
+        <!--//right-->
+    </div>
+    </div>
+</section>
