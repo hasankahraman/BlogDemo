@@ -5,6 +5,7 @@ namespace BlogDemo.Controllers
 {
 	public class WriterController : Controller
 	{
+		[AllowAnonymous]
 		public IActionResult Index()
 		{
 			return View();
@@ -13,5 +14,15 @@ namespace BlogDemo.Controllers
 		{
 			return View();
 		}
-	}
+		[AllowAnonymous]
+		public IActionResult PVLeftMenu()
+		{
+			return PartialView();
+		}
+        [AllowAnonymous]
+        public IActionResult PVWriterFooter()
+        {
+            return PartialView();
+        }
+    }
 }

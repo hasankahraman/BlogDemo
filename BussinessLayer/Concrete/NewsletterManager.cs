@@ -32,5 +32,15 @@ namespace BussinessLayer.Concrete
 		{
 			return _newsletterDAL.Get();
 		}
-	}
+
+        public Newsletter GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Newsletter t)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

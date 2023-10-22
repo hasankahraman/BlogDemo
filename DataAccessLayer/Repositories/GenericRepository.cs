@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,11 @@ namespace DataAccessLayer.Repositories
 
         public void Update(T t)
         {
-            context.Update(t);
+            //context.Update(t);
+            //context.SaveChanges();
+
+            var entityToUpdate = context.Entry(t);
+            entityToUpdate.State = EntityState.Modified;
             context.SaveChanges();
         }
     }
