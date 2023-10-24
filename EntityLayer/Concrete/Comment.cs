@@ -12,7 +12,7 @@ namespace EntityLayer.Concrete
         public string Content { get; set; }
         public bool Status { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.Now.ToShortDateString());
-
+        public int BlogRate { get; set; }
         public int BlogId { get; set; }
         public Blog Blog { get; set; }
     }
