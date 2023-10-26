@@ -1,0 +1,39 @@
+﻿CREATE TRIGGER AddBlogToBlogRatingTable
+ON Blogs
+AFTER INSERT
+AS
+DECLARE @Id INT
+SELECT @Id=Id FROM INSERTED
+INSERT INTO BlogRatings (BlogId, TotalScore, NumberOfRates, AverageRate, CreatedAt, Status)
+VALUES (@Id, 0,0,0, GETDATE(), 1)
+
+
+-----------------------------------
+
+
+USE [BlogDemoDB]
+GO
+/****** Object:  Trigger [dbo].[AddRatingToComment]    Script Date: 26.10.2023 16:45:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER TRIGGER [dbo].[AddRatingToComment]
+ON [dbo].[Comments]
+AFTER INSERT
+AS
+DECLARE @Id INT
+DECLARE @BlogRate INT
+DECLARE @RateCount INT
+
+SELECT @Id = BlogId, @BlogRate = BlogRate FROM INSERTED
+UPDATE BlogRatings SET TotalScore = TotalScore + @BlogRate, NumberOfRates += 1
+WHERE BlogId = @Id
+
+SELECT @Id = BlogId, @BlogRate = BlogRate FROM INSERTED
+UPDATE BlogRatings SET AverageRate = TotalScore / NumberOfRates
+WHERE BlogId = @Id
+
+
+-------------------------------
+
