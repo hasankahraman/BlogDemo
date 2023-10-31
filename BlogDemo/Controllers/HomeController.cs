@@ -1,4 +1,7 @@
 ﻿using BlogDemo.Models;
+using BussinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,9 +12,13 @@ using System.Threading.Tasks;
 
 namespace BlogDemo.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        BlogManager blogManager = new BlogManager(new EFBlogDAL());
+        CategoryManager categoryManager = new CategoryManager(new EFCategoryDAL());
+
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -20,6 +27,9 @@ namespace BlogDemo.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.TotalBlogs = blogManager.GetAll().Count;
+            ViewBag.AuthorsTotalBlogs = blogManager.GetByAuthor(1).Count;
+            ViewBag.TotalCategories = categoryManager.GetAll().Count;
             return View();
         }
 

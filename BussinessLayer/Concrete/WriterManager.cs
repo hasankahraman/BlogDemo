@@ -25,17 +25,17 @@ namespace BussinessLayer.Concrete
 
         public void Delete(Writer t)
         {
-            throw new NotImplementedException();
+            _writerDAL.Delete(t);
         }
 
         public List<Writer> GetAll()
         {
-            throw new NotImplementedException();
+            return _writerDAL.Get();
         }
 
         public Writer GetById(int id)
         {
-            throw new NotImplementedException();
+            return _writerDAL.GetById(id);
         }
 
         public Writer Login(Writer writer)
@@ -45,7 +45,7 @@ namespace BussinessLayer.Concrete
 
         public void Update(Writer t)
         {
-            throw new NotImplementedException();
+            _writerDAL.Update(t);
         }
     }
 }
