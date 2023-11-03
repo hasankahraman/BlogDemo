@@ -17,5 +17,7 @@ namespace EntityLayer.Concrete
         public bool Status { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.Now.ToShortDateString());
         public List<Blog>? Blogs { get; set; }
+        public virtual ICollection<Message> FromWr { get; set; }
+        public virtual ICollection<Message> ToWr { get; set; }
     }
 }

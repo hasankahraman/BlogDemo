@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BussinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogDemo.ViewComponents.Writer
 {
     public class GetWriterMessageNotifications : ViewComponent
     {
-        //MessageManager manager = new MessageManager();
+        MessageManager manager = new MessageManager(new EFMessageDAL());
         public IViewComponentResult Invoke()
         {
-            return View();
+            string userMail = "deve@akhisar.com";
+            var inbox = manager.GetInboxByWriter(1);
+            return View(inbox);
         }
     }
 }

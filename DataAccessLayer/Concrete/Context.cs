@@ -15,6 +15,21 @@ namespace DataAccessLayer.Concrete
             optionsBuilder.UseSqlServer("server=.; database=BlogDemoDB; integrated security=true;");
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.FromWriter)
+                .WithMany(y => y.FromWr)
+                .HasForeignKey(z => z.FromId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.ToWriter)
+                .WithMany(y => y.ToWr)
+                .HasForeignKey(z => z.ToId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        }
+
         public DbSet<About> Abouts { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -23,6 +38,8 @@ namespace DataAccessLayer.Concrete
         public DbSet<Writer> Writers { get; set; }
         public DbSet<Newsletter> Newsletters { get; set; }
         public DbSet<BlogRating> BlogRatings { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
     }
 }

@@ -4,14 +4,16 @@ using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231101105749_MessagesClassAdded")]
+    partial class MessagesClassAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,8 +226,8 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FromId")
-                        .HasColumnType("int");
+                    b.Property<string>("From")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -233,14 +235,10 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ToId")
-                        .HasColumnType("int");
+                    b.Property<string>("To")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FromId");
-
-                    b.HasIndex("ToId");
 
                     b.ToTable("Messages");
                 });
@@ -360,21 +358,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Blog");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.Message", b =>
-                {
-                    b.HasOne("EntityLayer.Concrete.Writer", "FromWriter")
-                        .WithMany("FromWr")
-                        .HasForeignKey("FromId");
-
-                    b.HasOne("EntityLayer.Concrete.Writer", "ToWriter")
-                        .WithMany("ToWr")
-                        .HasForeignKey("ToId");
-
-                    b.Navigation("FromWriter");
-
-                    b.Navigation("ToWriter");
-                });
-
             modelBuilder.Entity("EntityLayer.Concrete.Blog", b =>
                 {
                     b.Navigation("Comments");
@@ -388,10 +371,6 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("EntityLayer.Concrete.Writer", b =>
                 {
                     b.Navigation("Blogs");
-
-                    b.Navigation("FromWr");
-
-                    b.Navigation("ToWr");
                 });
 #pragma warning restore 612, 618
         }
