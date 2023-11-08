@@ -1,8 +1,31 @@
-﻿
+﻿@using EntityLayer.Concrete
+@model List<Message>
+
 @{
     ViewData["Title"] = "Inbox";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
-
 <h1>Inbox</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Subject</th>
+        <th>Sender</th>
+        <th>Created At</th>
+        <th>Details</th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.Id</th>
+            <td>@item.Subject</td>
+            <td>@item.FromWriter.Name</td>
+            <td>@item.CreatedAt.ToShortDateString()</td>
+            <td><a href="/Message/GetDetails/@item.Id" class="btn btn-warning">Open</a></td>
+        </tr>
+    }
+</table>
+<a href="/Message/Add" class="btn btn-primary">Create New</a>
 

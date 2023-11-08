@@ -73,7 +73,7 @@ namespace BlogDemo.Controllers
                 await HttpContext.SignInAsync(principal);
 
                 //HttpContext.Session.SetString("username", writer.Email);
-                return RedirectToAction("Index", "Blog");
+                return RedirectToAction("Index", "Writer");
             }
 
         }

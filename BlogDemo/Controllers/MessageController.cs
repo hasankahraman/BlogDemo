@@ -1,9 +1,11 @@
 ﻿using BussinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogDemo.Controllers
 {
+    [AllowAnonymous]
     public class MessageController : Controller
     {
         MessageManager manager = new MessageManager(new EFMessageDAL());
@@ -20,5 +22,10 @@ namespace BlogDemo.Controllers
             return View(messages);
         }
 
+        public IActionResult GetDetails(int id)
+        {
+            var message = manager.GetById(id);
+            return View(message);
+        }
     }
 }

@@ -12,14 +12,15 @@ using System.IO;
 
 namespace BlogDemo.Controllers
 {
-    [AllowAnonymous]
     public class WriterController : Controller
 	{
 		WriterManager manager = new WriterManager(new EFWriterDAL());
 
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Index()
 		{
+            var userMail = User.Identity.Name;
+            ViewBag.userMail = userMail;
 			return View();
 		}
 		public IActionResult WriterProfile()
