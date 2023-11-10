@@ -36,7 +36,7 @@ namespace BlogDemo.Controllers
             if (result.IsValid)
             {
                 manager.Add(writer);
-                return RedirectToAction("Index", "Blog");
+                return RedirectToAction("Index", "Home");
             }else
             {
                 foreach (var item in result.Errors)
@@ -64,16 +64,16 @@ namespace BlogDemo.Controllers
             }
             else
             {
-                var claims = new List<Claim> 
-                { 
-                    new Claim(ClaimTypes.Email, writer.Email) 
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, writer.Email) 
                 };
                 var userIdentity = new ClaimsIdentity(claims,"a");
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(principal);
 
                 //HttpContext.Session.SetString("username", writer.Email);
-                return RedirectToAction("Index", "Writer");
+                return RedirectToAction("Index", "Home");
             }
 
         }

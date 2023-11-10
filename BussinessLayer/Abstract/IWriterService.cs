@@ -11,5 +11,6 @@ namespace BussinessLayer.Abstract
     {
         Writer Login(Writer writer);
         //List<Writer> GetById(int writerId);
+        Writer GetWriterFromEmail(string email);
     }
 }

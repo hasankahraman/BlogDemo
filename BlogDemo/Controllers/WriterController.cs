@@ -21,7 +21,10 @@ namespace BlogDemo.Controllers
 		{
             var userMail = User.Identity.Name;
             ViewBag.userMail = userMail;
-			return View();
+
+            var writer = manager.GetWriterFromEmail(userMail);
+            ViewBag.userName = writer.Name;
+            return View();
 		}
 		public IActionResult WriterProfile()
 		{

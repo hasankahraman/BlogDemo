@@ -38,6 +38,11 @@ namespace BussinessLayer.Concrete
             return _writerDAL.GetById(id);
         }
 
+        public Writer GetWriterFromEmail(string email)
+        {
+            return _writerDAL.Get(x => x.Email == email).FirstOrDefault();
+        }
+
         public Writer Login(Writer writer)
         {
             return _writerDAL.Get(x => x.Email == writer.Email && x.Password == writer.Password).FirstOrDefault();
