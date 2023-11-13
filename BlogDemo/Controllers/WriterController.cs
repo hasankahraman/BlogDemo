@@ -30,12 +30,10 @@ namespace BlogDemo.Controllers
 		{
 			return View();
 		}
-		[AllowAnonymous]
 		public IActionResult PVLeftMenu()
 		{
 			return PartialView();
 		}
-        [AllowAnonymous]
         public IActionResult PVWriterFooter()
         {
             return PartialView();

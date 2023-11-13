@@ -11,8 +11,11 @@ namespace BlogDemo.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            var abouts = manager.GetById(1);
-            return View(abouts);
+            var userMail = User.Identity.Name;
+            ViewBag.userMail = userMail;
+
+            var writer = manager.GetWriterFromEmail(userMail);
+            return View(writer);
         }
 
     }

@@ -17,6 +17,7 @@ namespace BlogDemo.Controllers
     {
 		BlogManager manager = new BlogManager(new EFBlogDAL());
 		CategoryManager categoryManager = new CategoryManager(new EFCategoryDAL());
+		WriterManager writerManager = new WriterManager(new EFWriterDAL());
 
 		BlogValidator validator = new BlogValidator();
 
@@ -50,8 +51,13 @@ namespace BlogDemo.Controllers
 		}
 		public IActionResult GetBlogsOfWriter()
 		{
-			var blogs = manager.GetWithCategoryByWriter(1);
-			return View(blogs);
+            var userMail = User.Identity.Name;
+            ViewBag.userMail = userMail;
+            int writerId = writerManager.GetWriterFromEmail(userMail).Id;
+
+            var blogs = manager.GetWithCategoryByWriter(writerId);
+
+            return View(blogs);
 		}
 		[HttpGet]
 		public IActionResult Add()
@@ -70,11 +76,15 @@ namespace BlogDemo.Controllers
         {
             FluentValidation.Results.ValidationResult result = validator.Validate(blog);
 
-			if (result.IsValid)
+            var userMail = User.Identity.Name;
+            ViewBag.userMail = userMail;
+            int writerId = writerManager.GetWriterFromEmail(userMail).Id;
+
+            if (result.IsValid)
 			{
 				blog.Status = true;
 				blog.CreatedAt = DateTime.Parse(DateTime.Now.ToShortDateString());
-				blog.WriterId = 1;
+				blog.WriterId = writerId;
 
 				manager.Add(blog);
 				return RedirectToAction("GetBlogsOfWriter", "Blog");
@@ -113,11 +123,14 @@ namespace BlogDemo.Controllers
         public IActionResult Update(Blog blog)
         {
             FluentValidation.Results.ValidationResult result = validator.Validate(blog);
+            var userMail = User.Identity.Name;
+            ViewBag.userMail = userMail;
+            int writerId = writerManager.GetWriterFromEmail(userMail).Id;
 
             if (result.IsValid)
             {
     //            blog.Status = true;
-				blog.WriterId = 1;
+				blog.WriterId = writerId;
 				//blog.CreatedAt = DateTime.Parse(DateTime.Now.ToShortDateString());
 
                 manager.Update(blog);
