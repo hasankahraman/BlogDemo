@@ -4,7 +4,7 @@ namespace BlogDemo.Areas.Admin.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Test3()
         {
             return View();
         }

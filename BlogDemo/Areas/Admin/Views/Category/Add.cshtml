@@ -1,0 +1,20 @@
+﻿@model EntityLayer.Concrete.Category
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Add</h1>
+
+@using (Html.BeginForm("Add", "Category", FormMethod.Post))
+{
+    @Html.Label("Name")
+    @Html.TextBoxFor(x=> x.Name, new {@class="form-control"})
+    @Html.ValidationMessageFor(x=> x.Name)
+        <br />
+    @Html.Label("Description")
+    @Html.TextAreaFor(x=> x.Description, 15, 3, new {@class="form-control"})
+    @Html.ValidationMessageFor(x=> x.Description)
+        <br />
+        <button class="btn btn-dark" type="submit">Create</button>
+}
