@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Writer / Ajax</h1>
+
+<br />
+
+<button type="button" id="btnGetList" class="btn btn-dark"> Get Writer List</button>
+<br />
+<br />
+<div id="writerList">
+    Writers here..
+</div>
+
+@section scripts{
+    <script>
+        $("#btnGetList").click(function (){
+            $.ajax({
+                contentType:"application/json",
+                dataType:"json",
+                type:"Get",
+                url:"/Admin/Writer/WriterList",
+                success: function(func){
+                    let w = jQuery.parseJSON(func);
+                    console.log(w);
+                    let tablehtml = "<table class='table table-bordered'> <tr> <th> Id </th> <th> Name </th> </tr>";
+                    $.each(w,(index,value)=> {
+                        tablehtml+=`<tr><td>${value.Id}</td> <td>${value.Name}</td> </tr>`
+                    });
+                    tablehtml+="</table>";
+                    $("#writerList").html(tablehtml);
+                }
+            });
+        });
+    </script>
+}
+
+
+
