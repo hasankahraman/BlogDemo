@@ -1,3 +1,5 @@
+using BlogDemo.API.DataAccessLayer;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +28,13 @@ namespace BlogDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataAccessLayer.Concrete.Context>();
+
+            services.AddIdentity<AppUser, AppRole>(x=>
+            {
+                x.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<DataAccessLayer.Concrete.Context>();
+
             services.AddControllersWithViews();
 
             services.AddSession();
