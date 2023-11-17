@@ -33,6 +33,7 @@ namespace BlogDemo
             services.AddIdentity<AppUser, AppRole>(x=>
             {
                 x.Password.RequireUppercase = false;
+                x.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<DataAccessLayer.Concrete.Context>();
 
             services.AddControllersWithViews();
