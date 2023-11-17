@@ -1,0 +1,31 @@
+﻿@using BlogDemo.Controllers
+@model List<EmployeeClass>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td><a href="/EmployeeTest/Update/@item.Id/" class="btn btn-info">Update</a></td>
+            <td><a href="/EmployeeTest/Delete/@item.Id/" class="btn btn-warning">Delete</a></td>
+        </tr>
+    }
+</table>
+
+<br />
+
+<a href="/EmployeeTest/Add/" class="btn btn-dark">Create New Employee</a>

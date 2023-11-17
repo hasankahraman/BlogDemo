@@ -1,0 +1,18 @@
+﻿@using BlogDemo.Controllers
+@model EmployeeClass
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Update</h1>
+
+<form method="post">
+    <label>Id</label>
+    @Html.TextBoxFor(x=> x.Id, new {@class="form-control"})
+    <br />
+    <label>Name</label>
+    @Html.TextBoxFor(x=> x.Name, new {@class="form-control"})
+    <br />
+    <button type="submit" class="btn btn-info">Update</button>
+</form>
