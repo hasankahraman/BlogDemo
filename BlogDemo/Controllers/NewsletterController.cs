@@ -16,7 +16,7 @@ namespace BlogDemo.Controllers
 		}
 
 		[HttpPost]
-		public PartialViewResult PVSignUpForNewsletter(Newsletter newsletter)
+		public IActionResult PVSignUpForNewsletter(Newsletter newsletter)
 		{
 			newsletter.Status = true;
 			newsletter.CreatedAt = DateTime.Parse(DateTime.Now.ToShortDateString());

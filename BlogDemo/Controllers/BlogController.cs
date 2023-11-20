@@ -13,6 +13,7 @@ using System.Linq;
 
 namespace BlogDemo.Controllers
 {
+    [AllowAnonymous]
     public class BlogController : Controller
     {
 		BlogManager manager = new BlogManager(new EFBlogDAL());

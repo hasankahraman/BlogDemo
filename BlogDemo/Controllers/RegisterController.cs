@@ -1,4 +1,5 @@
-﻿using BussinessLayer.Concrete;
+﻿using BlogDemo.Models;
+using BussinessLayer.Concrete;
 using BussinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
@@ -6,6 +7,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,17 +16,22 @@ using System.Threading.Tasks;
 
 namespace BlogDemo.Controllers
 {
-
+    [AllowAnonymous]
     public class RegisterController : Controller
     {
+        private readonly SignInManager<AppUser> _signInManager;
+
+        public RegisterController(SignInManager<AppUser> signInManager)
+        {
+            _signInManager = signInManager;
+        }
+
         WriterManager manager = new WriterManager(new EFWriterDAL());
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult Index(Writer writer)
         {
@@ -46,36 +53,50 @@ namespace BlogDemo.Controllers
                 return View();
             }
         }
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
-        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(Writer writer)
+        public async Task<IActionResult> Login(UserSignInViewModel user)
         {
-            var toLogin = manager.Login(writer);
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, false, true);
 
-            if (toLogin == null)
-            {
-                return View();
-            }
-            else
-            {
-                var claims = new List<Claim>
+                if (result.Succeeded)
                 {
-                    new Claim(ClaimTypes.Name, writer.Email) 
-                };
-                var userIdentity = new ClaimsIdentity(claims,"a");
-                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                await HttpContext.SignInAsync(principal);
-
-                //HttpContext.Session.SetString("username", writer.Email);
-                return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View();
+                }
             }
-
+            return RedirectToAction("Login", "Register");
         }
+        //public async Task<IActionResult> Login(Writer writer)
+        //{
+        //    var toLogin = manager.Login(writer);
+
+        //    if (toLogin == null)
+        //    {
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        var claims = new List<Claim>
+        //        {
+        //            new Claim(ClaimTypes.Name, writer.Email) 
+        //        };
+        //        var userIdentity = new ClaimsIdentity(claims,"a");
+        //        ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+        //        await HttpContext.SignInAsync(principal);
+
+        //        //HttpContext.Session.SetString("username", writer.Email);
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //}
     }
 }

@@ -1,11 +1,13 @@
 ﻿using BussinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace BlogDemo.Controllers
 {
+	[AllowAnonymous]
 	public class CommentController : Controller
 	{
 		CommentManager manager = new CommentManager(new EFCommentDAL());
@@ -13,25 +15,19 @@ namespace BlogDemo.Controllers
 		{
 			return View();
 		}
-		public PartialViewResult PVCommentsOfBlogs(int blogId)
-		{
-			var comments = manager.GetAll(blogId);
-			return PartialView(comments);
-		}
 		[HttpGet]
 		public IActionResult PVAddComment()
 		{
 			return View();
 		}
 		[HttpPost]
-		public PartialViewResult PVAddComment(Comment comment)
+		public IActionResult PVAddComment(Comment comment)
 		{
 			comment.Status = true;
 			comment.CreatedAt = DateTime.Parse(DateTime.Now.ToShortDateString());
-			comment.BlogId = 9;
 
 			manager.Add(comment);
-			return PartialView();
+			return PartialView(comment);
 		}
 	}
 }
