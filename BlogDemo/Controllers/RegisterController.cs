@@ -43,7 +43,7 @@ namespace BlogDemo.Controllers
             if (result.IsValid)
             {
                 manager.Add(writer);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Blog");
             }else
             {
                 foreach (var item in result.Errors)

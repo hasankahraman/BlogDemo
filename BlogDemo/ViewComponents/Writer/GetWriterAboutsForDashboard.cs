@@ -24,8 +24,10 @@ namespace BlogDemo.ViewComponents.Writer
 
             var userName = User.Identity.Name;
             ViewBag.userMail = userName;
+
             var userMail = manager.GetAll().Where(x => x.Name == userName).Select(y=> y.Email).FirstOrDefault();
             var writer = manager.GetWriterFromEmail(userMail);
+
             return View(writer);
         }
 

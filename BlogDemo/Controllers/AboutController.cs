@@ -1,9 +1,11 @@
 ﻿using BussinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogDemo.Controllers
 {
+	[AllowAnonymous]
 	public class AboutController : Controller
 	{
 		AboutManager manager = new AboutManager(new EFAboutDAL());
