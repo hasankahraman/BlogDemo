@@ -54,7 +54,7 @@ namespace BlogDemo
                 CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(x =>
                     {
-                        x.LoginPath = "/Register/Login";
+                        x.LoginPath = "~/Register/Login";
                     }
                 );
 
@@ -69,7 +69,7 @@ namespace BlogDemo
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("~/Register/Login");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

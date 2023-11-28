@@ -1,4 +1,6 @@
-﻿using BussinessLayer.Concrete;
+﻿using BlogDemo.API.DataAccessLayer;
+using BussinessLayer.Concrete;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +15,7 @@ namespace BlogDemo.ViewComponents.Writer
     {
         WriterManager manager = new WriterManager(new EFWriterDAL());
         private readonly UserManager<AppUser> _userManager;
+        DataAccessLayer.Concrete.Context context = new DataAccessLayer.Concrete.Context();
 
         public GetWriterAboutsForDashboard(UserManager<AppUser> userManager)
         {
@@ -22,10 +25,10 @@ namespace BlogDemo.ViewComponents.Writer
         public IViewComponentResult Invoke()
         {
 
+
             var userName = User.Identity.Name;
             ViewBag.userMail = userName;
-
-            var userMail = manager.GetAll().Where(x => x.Name == userName).Select(y=> y.Email).FirstOrDefault();
+            var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
             var writer = manager.GetWriterFromEmail(userMail);
 
             return View(writer);

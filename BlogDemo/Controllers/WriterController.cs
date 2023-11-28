@@ -1,20 +1,31 @@
 ﻿using BlogDemo.Models;
 using BussinessLayer.Concrete;
 using BussinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace BlogDemo.Controllers
 {
     public class WriterController : Controller
 	{
 		WriterManager manager = new WriterManager(new EFWriterDAL());
+        private readonly UserManager<AppUser> _userManager;
+
+        public WriterController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        Context context = new Context();
 
         [Authorize]
         public IActionResult Index()
@@ -39,10 +50,17 @@ namespace BlogDemo.Controllers
             return PartialView();
         }
 		[HttpGet]
-		public IActionResult UpdateWriter()
+		public async Task<IActionResult> UpdateWriter()
 		{
-			var writer = manager.GetById(1);
-			return View(writer);
+            //var userName = User.Identity.Name;
+            //var usermail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
+            //var writer = manager.GetWriterFromEmail(usermail);
+
+            //var writertoUpdate = manager.GetById(writer.Id);
+
+            var writerToUpdate = await _userManager.FindByNameAsync(User.Identity.Name);
+
+			return View(writerToUpdate);
 		}
         [HttpPost]
         public IActionResult UpdateWriter(Writer writer)
