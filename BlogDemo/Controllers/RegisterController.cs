@@ -76,5 +76,11 @@ namespace BlogDemo.Controllers
             }
             return RedirectToAction("Login", "Register");
         }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Register");
+        }
     }
 }

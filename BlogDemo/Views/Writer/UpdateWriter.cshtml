@@ -1,44 +1,33 @@
-﻿@model EntityLayer.Concrete.Writer
+﻿@model AppUserUpdateViewModel
 @{
     ViewData["Title"] = "UpdateWriter";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
-@using (Html.BeginForm("UpdateWriter", "Writer", FormMethod.Post))
-{
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Update Profile</h4>
                 <br />
-                <form class="forms-sample">
-                    @Html.HiddenFor(x=> x.Id, new {@class="form-control"})
+
+                <form class="forms-sample" method="post">
                     <div class="form-group">
                         <label for="exampleInputName1">Name</label>
-                        @Html.TextBoxFor(x=> x.Name, new {@class="form-control"})
+                        <input type="text" asp-for="@Model.NameSurname" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">Email address</label>
-                        @Html.TextBoxFor(x=> x.Email, new {@class="form-control"})
-
+                        <input type="text" asp-for="@Model.Email" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputName1">Title</label>
-                        @Html.TextBoxFor(x=> x.Title, new {@class="form-control"})
-                    </div>
-                                        <div class="form-group">
-                        <label for="exampleInputCity1">About</label>
-                        @Html.TextAreaFor(x=> x.About, 10,3, new {@class="form-control"})
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword4">Password</label>
-                        @Html.PasswordFor(x=> x.Password, new {@class="form-control"})
+                        <label for="exampleInputEmail3">Create New Password</label>
+                        <input type="text" asp-for="@Model.Password" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Upload Image</label>
                         <input type="file" name="img[]" class="file-upload-default">
                         <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                            <input type="text" class="form-control file-upload-info" asp-for="@Model.ImageUrl" disabled placeholder="Upload Image">
                             <span class="input-group-append">
                                 <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
                             </span>
@@ -50,7 +39,7 @@
             </div>
         </div>
     </div>
-}
+
 <script src="~/writer/assets/vendors/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
 <!-- Plugin js for this page -->

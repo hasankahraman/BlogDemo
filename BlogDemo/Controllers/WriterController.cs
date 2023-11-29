@@ -12,12 +12,14 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlogDemo.Controllers
 {
     public class WriterController : Controller
 	{
 		WriterManager manager = new WriterManager(new EFWriterDAL());
+		//AppUserManager userManager = new AppUserManager(new EFAppUserDAL());
         private readonly UserManager<AppUser> _userManager;
 
         public WriterController(UserManager<AppUser> userManager)
@@ -54,34 +56,46 @@ namespace BlogDemo.Controllers
 		{
             //var userName = User.Identity.Name;
             //var usermail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
-            //var writer = manager.GetWriterFromEmail(usermail);
+            //var writerToUpdate = userManager.GetAll().Where(x=> x.Email == usermail).FirstOrDefault();
 
-            //var writertoUpdate = manager.GetById(writer.Id);
-
-            var writerToUpdate = await _userManager.FindByNameAsync(User.Identity.Name);
-
-			return View(writerToUpdate);
+            var writer = await _userManager.FindByNameAsync(User.Identity.Name);
+            AppUserUpdateViewModel model = new AppUserUpdateViewModel();
+            model.Email = writer.Email;
+            model.NameSurname = writer.NameSurname;
+            model.ImageUrl = writer.ImageUrl;
+            //model.Password = writer.PasswordHash;
+            return View(model);
 		}
         [HttpPost]
-        public IActionResult UpdateWriter(Writer writer)
+        public async Task<IActionResult> UpdateWriter(AppUserUpdateViewModel model)
         {
-			WriterValidator validator = new WriterValidator();
-			ValidationResult result = validator.Validate(writer);
+            //WriterValidator validator = new WriterValidator();
+            //ValidationResult result = validator.Validate(writer);
 
-			if (result.IsValid)
-			{
-				writer.Image = writer.Image;
-				manager.Update(writer);
-				return RedirectToAction("Index", "Home");
-			}
-			else
-			{
-				foreach (var item in result.Errors)
-				{
-					ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-                return View();
-            }
+            //if (result.IsValid)
+            //{
+            //	writer.Image = writer.Image;
+            //	manager.Update(writer);
+            //	return RedirectToAction("Index", "Home");
+            //}
+            //else
+            //{
+            //	foreach (var item in result.Errors)
+            //	{
+            //		ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            //             }
+            //             return View();
+            //         }
+
+
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            values.Email = model.Email;
+            values.NameSurname = model.NameSurname;
+            values.ImageUrl = model.ImageUrl;
+            values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.Password);
+            var result = await _userManager.UpdateAsync(values);
+            return RedirectToAction("Index", "Home");
+
         }
         [HttpGet]
         public IActionResult AddWriter()

@@ -1,5 +1,6 @@
 ﻿using BussinessLayer.Concrete;
 using BussinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -19,6 +20,7 @@ namespace BlogDemo.Controllers
 		BlogManager manager = new BlogManager(new EFBlogDAL());
 		CategoryManager categoryManager = new CategoryManager(new EFCategoryDAL());
 		WriterManager writerManager = new WriterManager(new EFWriterDAL());
+        Context context = new Context();
 
 		BlogValidator validator = new BlogValidator();
 
@@ -54,10 +56,8 @@ namespace BlogDemo.Controllers
 		{
             var userMail = User.Identity.Name;
             ViewBag.userMail = userMail;
-            int writerId = writerManager.GetWriterFromEmail(userMail).Id;
-
+            int writerId = context.Users.Where(x => x.UserName == userMail).Select(y => y.Id).FirstOrDefault();
             var blogs = manager.GetWithCategoryByWriter(writerId);
-
             return View(blogs);
 		}
 		[HttpGet]
