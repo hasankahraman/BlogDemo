@@ -54,10 +54,6 @@ namespace BlogDemo.Controllers
 		[HttpGet]
 		public async Task<IActionResult> UpdateWriter()
 		{
-            //var userName = User.Identity.Name;
-            //var usermail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
-            //var writerToUpdate = userManager.GetAll().Where(x=> x.Email == usermail).FirstOrDefault();
-
             var writer = await _userManager.FindByNameAsync(User.Identity.Name);
             AppUserUpdateViewModel model = new AppUserUpdateViewModel();
             model.Email = writer.Email;
@@ -69,25 +65,6 @@ namespace BlogDemo.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateWriter(AppUserUpdateViewModel model)
         {
-            //WriterValidator validator = new WriterValidator();
-            //ValidationResult result = validator.Validate(writer);
-
-            //if (result.IsValid)
-            //{
-            //	writer.Image = writer.Image;
-            //	manager.Update(writer);
-            //	return RedirectToAction("Index", "Home");
-            //}
-            //else
-            //{
-            //	foreach (var item in result.Errors)
-            //	{
-            //		ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-            //             }
-            //             return View();
-            //         }
-
-
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
             values.Email = model.Email;
             values.NameSurname = model.NameSurname;

@@ -38,6 +38,11 @@ namespace BussinessLayer.Concrete
             return _messageDAL.GetById(id);
         }
 
+        public Message GetDetailsWithWriter(int messageId)
+        {
+            return _messageDAL.GetDetailsWithWriter(messageId);
+        }
+
         public List<Message> GetInboxByWriter(int to)
         {
             return _messageDAL.GetInboxWithWriter(to);

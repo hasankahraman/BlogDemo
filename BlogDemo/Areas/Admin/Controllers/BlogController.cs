@@ -93,6 +93,12 @@ namespace BlogDemo.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult Index()
+        {
+            var blogs = manager.GetWithCategory();
+            return View(blogs);
+        }
+
     }
 
 }

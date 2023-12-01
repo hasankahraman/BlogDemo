@@ -55,7 +55,6 @@ namespace BlogDemo.Controllers
 		public IActionResult GetBlogsOfWriter()
 		{
             var userMail = User.Identity.Name;
-            ViewBag.userMail = userMail;
             int writerId = context.Users.Where(x => x.UserName == userMail).Select(y => y.Id).FirstOrDefault();
             var blogs = manager.GetWithCategoryByWriter(writerId);
             return View(blogs);
@@ -78,14 +77,13 @@ namespace BlogDemo.Controllers
             FluentValidation.Results.ValidationResult result = validator.Validate(blog);
 
             var userMail = User.Identity.Name;
-            ViewBag.userMail = userMail;
-            int writerId = writerManager.GetWriterFromEmail(userMail).Id;
+            int writerId = context.Users.Where(x => x.UserName == userMail).Select(y => y.Id).FirstOrDefault();
 
             if (result.IsValid)
 			{
 				blog.Status = true;
 				blog.CreatedAt = DateTime.Parse(DateTime.Now.ToShortDateString());
-				blog.WriterId = writerId;
+				blog.UserId = writerId;
 
 				manager.Add(blog);
 				return RedirectToAction("GetBlogsOfWriter", "Blog");
@@ -125,13 +123,12 @@ namespace BlogDemo.Controllers
         {
             FluentValidation.Results.ValidationResult result = validator.Validate(blog);
             var userMail = User.Identity.Name;
-            ViewBag.userMail = userMail;
-            int writerId = writerManager.GetWriterFromEmail(userMail).Id;
+            int writerId = context.Users.Where(x => x.UserName == userMail).Select(y => y.Id).FirstOrDefault();
 
             if (result.IsValid)
             {
     //            blog.Status = true;
-				blog.WriterId = writerId;
+				blog.UserId = writerId;
 				//blog.CreatedAt = DateTime.Parse(DateTime.Now.ToShortDateString());
 
                 manager.Update(blog);

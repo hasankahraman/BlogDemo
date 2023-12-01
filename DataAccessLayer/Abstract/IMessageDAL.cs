@@ -11,5 +11,6 @@ namespace DataAccessLayer.Abstract
     {
         List<Message> GetInboxWithWriter(int id);
         List<Message> GetSentboxWithWriter(int id);
+        Message GetDetailsWithWriter(int messageId);
     }
 }

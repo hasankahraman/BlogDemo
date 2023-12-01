@@ -7,13 +7,16 @@
 
 <h1>Get Details</h1>
 
-    @Html.Label("Sender")
-    @Html.TextBoxFor(x=> x.FromId, new {@class="form-control"})
-    <br />
-    @Html.Label("Subject")
-    @Html.TextBoxFor(x=> x.Subject, new {@class="form-control"})
-    <br />
-    @Html.Label("Content")
-    @Html.TextAreaFor(x=> x.Content,10,3, new {@class="form-control"})
-    <br />
-    <a class="btn btn-dark" href="/Message/Inbox/">Back To Messages</a>
+@Html.Label("From")
+@Html.TextBoxFor(x=> x.FromUser.NameSurname, new {@class="form-control"})
+<br />
+@Html.Label("To")
+@Html.TextBoxFor(x=> x.ToUser.NameSurname, new {@class="form-control"})
+<br />
+@Html.Label("Subject")
+@Html.TextBoxFor(x=> x.Subject, new {@class="form-control"})
+<br />
+@Html.Label("Content")
+@Html.TextAreaFor(x=> x.Content,10,3, new {@class="form-control"})
+<br />
+<a class="btn btn-dark" href="/Message/Inbox/">Back To Messages</a>

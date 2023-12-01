@@ -54,9 +54,18 @@ namespace BlogDemo
                 CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(x =>
                     {
-                        x.LoginPath = "~/Register/Login";
+                        x.LoginPath = "/Register/Login";
                     }
                 );
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(90);
+
+                options.LoginPath = "/Register/Login/";
+                options.SlidingExpiration = true;
+            });
 
         }
 

@@ -43,7 +43,12 @@ namespace BussinessLayer.Concrete
 			return _commentDAL.GetById(id);
 		}
 
-		public void Update(Comment comment)
+        public List<Comment> GetWithBlog()
+        {
+			return _commentDAL.GetWithBlog();
+        }
+
+        public void Update(Comment comment)
 		{
 			_commentDAL.Update(comment);
 		}

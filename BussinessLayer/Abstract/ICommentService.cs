@@ -10,5 +10,6 @@ namespace BussinessLayer.Abstract
 	public interface ICommentService : IGenericService<Comment>
 	{
 		List<Comment> GetAll(int blogId);
+		List<Comment> GetWithBlog();
 	}
 }

@@ -19,14 +19,14 @@ namespace DataAccessLayer.Concrete
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Message>()
-                .HasOne(x => x.FromWriter)
-                .WithMany(y => y.FromWr)
+                .HasOne(x => x.FromUser)
+                .WithMany(y => y.FromUsr)
                 .HasForeignKey(z => z.FromId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<Message>()
-                .HasOne(x => x.ToWriter)
-                .WithMany(y => y.ToWr)
+                .HasOne(x => x.ToUser)
+                .WithMany(y => y.ToUsr)
                 .HasForeignKey(z => z.ToId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 

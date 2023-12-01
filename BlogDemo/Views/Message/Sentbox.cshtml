@@ -2,16 +2,16 @@
 @model List<Message>
 
 @{
-    ViewData["Title"] = "Inbox";
+    ViewData["Title"] = "Sentbox";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
-<h1>Inbox</h1>
+<h1>Sentbox</h1>
 
 <table class="table table-bordered">
     <tr>
         <th>#</th>
         <th>Subject</th>
-        <th>From</th>
+        <th>To</th>
         <th>Created At</th>
         <th>Details</th>
 
@@ -21,7 +21,7 @@
         <tr>
             <th>@item.Id</th>
             <td>@item.Subject</td>
-            <td>@item.FromUser.NameSurname</td>
+            <td>@item.ToUser.NameSurname</td>
             <td>@item.CreatedAt.ToShortDateString()</td>
             <td><a href="/Message/GetDetails/@item.Id" class="btn btn-warning">Open</a></td>
         </tr>

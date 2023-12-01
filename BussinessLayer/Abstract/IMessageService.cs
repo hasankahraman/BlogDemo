@@ -11,5 +11,6 @@ namespace BussinessLayer.Abstract
     {
         List<Message> GetInboxByWriter(int to);
         List<Message> GetSentboxByWriter(int from);
+        Message GetDetailsWithWriter(int messageId);
     }
 }

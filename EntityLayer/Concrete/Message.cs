@@ -18,7 +18,7 @@ namespace EntityLayer.Concrete
         public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.Now.ToString());
         public bool Status { get; set; } = true;
 
-        public Writer FromWriter { get; set; }
-        public Writer ToWriter { get; set; }
+        public AppUser FromUser { get; set; }
+        public AppUser ToUser { get; set; }
     }
 }

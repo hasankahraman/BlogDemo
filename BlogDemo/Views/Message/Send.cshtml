@@ -1,0 +1,23 @@
+﻿@model EntityLayer.Concrete.Message
+@{
+    ViewData["Title"] = "Send";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<h1>New Message</h1>
+<br />
+@using (Html.BeginForm("Send","Message", FormMethod.Post))
+{
+    @Html.Label("To")
+    @Html.TextBoxFor(x=> x.ToId, new {@class="form-control"})
+    <br />
+    @Html.Label("Subject")
+    @Html.TextBoxFor(x=> x.Subject, new {@class="form-control"})
+    <br />
+    @Html.Label("Content")
+    @Html.TextAreaFor(x=> x.Content,10,3, new {@class="form-control"})
+    <br />
+    <button class="btn btn-dark" href="/Message/Send/">Send</button>
+}
+
+

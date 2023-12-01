@@ -11,6 +11,9 @@ namespace EntityLayer.Concrete
     {
         public string NameSurname { get; set; }
         public string ImageUrl { get; set; }
+        public List<Blog>? Blogs { get; set; }
+        public virtual ICollection<Message> FromUsr { get; set; }
+        public virtual ICollection<Message> ToUsr { get; set; }
 
     }
 }
