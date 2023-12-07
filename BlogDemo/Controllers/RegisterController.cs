@@ -82,5 +82,10 @@ namespace BlogDemo.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Register");
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

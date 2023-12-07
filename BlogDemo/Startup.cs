@@ -62,7 +62,7 @@ namespace BlogDemo
             {
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(90);
-
+                options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Register/AccessDenied");
                 options.LoginPath = "/Register/Login/";
                 options.SlidingExpiration = true;
             });
